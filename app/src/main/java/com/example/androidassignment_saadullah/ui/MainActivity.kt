@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     {
         if(FactorCalculator.validateDivision(translatedWidth))
         {
-            //img.setImageDrawable(getDrawable(R.drawable.tree))
             val bitmapResizeImage = BitmapFactory.decodeResource(
                 resources,
                 R.drawable.activity_life_cycle
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
                 val heightFactor = FactorCalculator.findFactor(translatedHeight, translatedWidth)
 
-                Log.e("aspect_factor ", " = $heightFactor")
+                //Log.e("aspect_factor ", " = $heightFactor")
 
                 var newHeight = heightFactor * originalWidth
 
