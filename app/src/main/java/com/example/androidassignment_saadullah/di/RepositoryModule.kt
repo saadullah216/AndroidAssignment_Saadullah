@@ -2,6 +2,7 @@ package com.example.androidassignment_saadullah.di
 
 import com.example.androidassignment_saadullah.data.api.AssignmentApi
 import com.example.androidassignment_saadullah.data.repo.AssignmentRepository
+import com.example.androidassignment_saadullah.data.repo.AssignmentRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,6 +26,6 @@ object RepositoryModule {
     fun provideAssignmentRepository(
         assignmentApi: AssignmentApi
     ): AssignmentRepository {
-        return AssignmentRepository(assignmentApi)
+        return AssignmentRepositoryImpl(assignmentApi)
     }
 }
