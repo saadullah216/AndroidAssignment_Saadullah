@@ -10,7 +10,7 @@ import javax.inject.Inject
  * used in view model to update live data
  * @param assignmentApi is injected with dagger hilt
  */
-class AssignmentRepositoryImpl @Inject constructor(
+class DefaultAssignmentRepository @Inject constructor(
     private val assignmentApi: AssignmentApi
 ) : AssignmentRepository {
     override suspend fun getTranslatedValues(): Resource<TranslatedValues> {
@@ -27,23 +27,4 @@ class AssignmentRepositoryImpl @Inject constructor(
             Resource.Error(e.message ?: "An error occurred")
         }
     }
-
-    /**
-     * suspend function to get and parse data
-     */
-//    suspend fun getTranslatedValues(): Resource<TranslatedValues> {
-//
-//        return try {
-//            val response = assignmentApi.getTranslatedValues()
-//            val result = response.body()
-//            println("saad" + response.body())
-//            if (response.isSuccessful && result != null) {
-//                Resource.Success(result)
-//            } else {
-//                Resource.Error(response.message())
-//            }
-//        } catch (e: Exception) {
-//            Resource.Error(e.message ?: "An error occurred")
-//        }
-//    }
 }
