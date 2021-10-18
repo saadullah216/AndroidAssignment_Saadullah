@@ -1,5 +1,6 @@
 package com.example.androidassignment_saadullah.data.api
 
+import com.example.androidassignment_saadullah.constants.Constants
 import com.example.androidassignment_saadullah.utills.AssignmentApiTestUtils
 import com.example.androidassignment_saadullah.utills.AssignmentApiTestUtils.Companion.enqueueResponse
 import com.google.common.truth.Truth.assertThat
@@ -10,7 +11,6 @@ import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.kotlin.mock
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -39,7 +39,7 @@ class AssignmentApiTest {
 
 
     @Test
-    fun getTranslatedValues() {
+    fun `returns_success`() {
 
         enqueueResponse(mockWebServer,translatedValuesResponseFileName)
         runBlocking {
@@ -55,16 +55,19 @@ class AssignmentApiTest {
     }
 
     @Test
-    fun `returns_network_error_404`()
+    fun `returns_error_not_found`()
     {
-        mockWebServer.enqueue(MockResponse().setResponseCode(404))
+        mockWebServer.enqueue(MockResponse().setResponseCode(Constants.NOT_FOUND))
         runBlocking {
             val response = assignmentApi.getTranslatedValues()
 
-            assertThat(response.code()).isEqualTo(404)
+            TestCase.assertEquals("/b/R7A1", mockWebServer.takeRequest().path)
+            assertThat(response.code()).isEqualTo(Constants.NOT_FOUND)
             assertThat(response.body()).isEqualTo(null)
         }
     }
+
+
 
     @After
     fun teardown() {

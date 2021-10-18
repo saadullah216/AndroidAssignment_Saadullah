@@ -21,13 +21,25 @@ class AssignmentRepositoryImplTest {
     }
 
     @Test
-    fun getTranslatedValues() {
+    fun `get_translated_values_success`() {
 
         var translatedValues = TranslatedValues(0.1f, 0.1f)
         runBlocking {
            var response = assignmentRepository.getTranslatedValues()
             assertThat(response.data).isEqualTo(translatedValues)
             assertThat(response.message).isEqualTo(null)
+        }
+
+    }
+
+    @Test
+    fun `get_translated_values_error`() {
+
+        assignmentRepository.setShouldReturnError()
+        runBlocking {
+            var response = assignmentRepository.getTranslatedValues()
+            assertThat(response.data).isEqualTo(null)
+            assertThat(response.message).isEqualTo("network Error")
         }
 
     }

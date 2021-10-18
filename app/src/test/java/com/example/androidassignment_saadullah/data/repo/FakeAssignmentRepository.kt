@@ -7,7 +7,16 @@ class FakeAssignmentRepository : AssignmentRepository {
 
     var translatedValues = TranslatedValues(0.1f, 0.1f)
 
+    private var shouldReturnError = false
+
     override suspend fun getTranslatedValues(): Resource<TranslatedValues> {
-        return Resource.Success(translatedValues)
+        if (shouldReturnError)
+            return Resource.Error("network Error")
+        else
+            return Resource.Success(translatedValues)
+    }
+
+    fun setShouldReturnError() {
+        shouldReturnError = true
     }
 }
