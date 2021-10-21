@@ -80,8 +80,9 @@ dependencies {
     androidTestImplementation "com.google.truth:truth:1.1.2"
 
     // Test Libraries
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
     testImplementation "org.mockito:mockito-core:4.0.0"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    //testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
     testImplementation "com.squareup.okhttp3:mockwebserver:4.9.1"
     testImplementation 'androidx.test:runner:1.4.0'
@@ -91,6 +92,7 @@ dependencies {
     testImplementation 'androidx.test.ext:truth:1.4.0'
     testImplementation 'com.github.javafaker:javafaker:0.16'
     testImplementation 'junit:junit:4.+'
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     // Android Test Libraries
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

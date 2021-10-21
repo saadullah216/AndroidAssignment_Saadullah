@@ -5,10 +5,17 @@ import com.example.androidassignment_saadullah.utills.AssignmentApiTestUtils
 import com.example.androidassignment_saadullah.utills.AssignmentApiTestUtils.Companion.enqueueResponse
 import com.google.common.truth.Truth.assertThat
 import junit.framework.TestCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import retrofit2.Retrofit
@@ -19,7 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class AssignmentApiTest {
 
-   private val translatedValuesResponseFileName = "TranslatedValues.json"
+    private val translatedValuesResponseFileName = "TranslatedValues.json"
+
+
 
 
     @get:Rule
@@ -41,7 +50,7 @@ class AssignmentApiTest {
     @Test
     fun `returns_success`() {
 
-        enqueueResponse(mockWebServer,translatedValuesResponseFileName)
+        enqueueResponse(mockWebServer, translatedValuesResponseFileName)
         runBlocking {
             val response = assignmentApi.getTranslatedValues()
 
@@ -49,14 +58,18 @@ class AssignmentApiTest {
             TestCase.assertEquals("/b/R7A1", mockWebServer.takeRequest().path)
 
             //valid response assertion
-            TestCase.assertEquals(response.body(),AssignmentApiTestUtils.getTranslatedValuesTestObject(translatedValuesResponseFileName))
+            TestCase.assertEquals(
+                response.body(),
+                AssignmentApiTestUtils.getTranslatedValuesTestObject(
+                    translatedValuesResponseFileName
+                )
+            )
 
         }
     }
 
     @Test
-    fun `returns_error_not_found`()
-    {
+    fun `returns_error_not_found`() {
         mockWebServer.enqueue(MockResponse().setResponseCode(Constants.NOT_FOUND))
         runBlocking {
             val response = assignmentApi.getTranslatedValues()
@@ -66,7 +79,6 @@ class AssignmentApiTest {
             assertThat(response.body()).isEqualTo(null)
         }
     }
-
 
 
     @After
